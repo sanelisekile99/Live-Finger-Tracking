@@ -1,14 +1,14 @@
-#include <Servo.h>
+ #include <Servo.h>
 
-Servo servos[5];
-const int servoPins[5] = {3, 5, 6, 9, 10}; // Thumb, Index, Middle, Ring, Pinky
+Servo servos[6];
+const int servoPins[6] = {1, 2, 3, 4, 5, 6}; // Base, Thumb, Index, Middle, Ring, Pinky
 
 String inputString = "";
-float fingerPositions[5] = {0, 0, 0, 0, 0};
+float fingerPositions[6] = {0, 0, 0, 0, 0, 0};
 
 void setup() {
   Serial.begin(9600);
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
     servos[i].attach(servoPins[i]);
     servos[i].write(90); // Center position
   }
@@ -29,10 +29,10 @@ void loop() {
 void parseAndMove(String data) {
   int idx = 0;
   int lastIndex = 0;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
     idx = data.indexOf(',', lastIndex);
     String valueStr;
-    if (idx == -1 && i == 4) {
+    if (idx == -1 && i == 5) {
       valueStr = data.substring(lastIndex);
     } else {
       valueStr = data.substring(lastIndex, idx);
